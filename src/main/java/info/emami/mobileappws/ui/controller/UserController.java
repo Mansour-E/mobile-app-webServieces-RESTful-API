@@ -1,6 +1,9 @@
 package info.emami.mobileappws.ui.controller;
 
 import info.emami.mobileappws.ui.model.response.UserRest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,11 +18,12 @@ public class UserController {
         return "get user was called with  page = "  + page + " and limit = " + limit;
     }
 
-    @GetMapping(path = "/{userId}")
-    public UserRest getUser(@PathVariable String userId){
+    @GetMapping(path = "/{userId}", produces = {MediaType.APPLICATION_XML_VALUE,
+                                                    MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<UserRest> getUser(@PathVariable String userId){
 
         UserRest result = new UserRest("Mansour", "Emami", "mansuurem@gmail.com", userId);
-        return result;
+        return new ResponseEntity<>(result,HttpStatus.BAD_GATEWAY);
     }
 
     @PostMapping
