@@ -2,6 +2,7 @@ package info.emami.mobileappws.ui.controller;
 
 import info.emami.mobileappws.ui.model.request.UserDetailsRequestModel;
 import info.emami.mobileappws.ui.model.response.UserRest;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +37,12 @@ public class UserController {
                     MediaType.APPLICATION_JSON_VALUE
 
     })
-    public ResponseEntity<UserRest> creatUser(@RequestBody UserDetailsRequestModel userDetails){
+    public ResponseEntity<UserRest> creatUser(@Valid @RequestBody UserDetailsRequestModel userDetails){
 
         UserRest result = new UserRest();
         result.setEmail(userDetails.getEmail());
         result.setFirstName(userDetails.getFirstName());
         result.setLastName(userDetails.getLastName());
-        result.setUserId(userDetails.getUserId());
 
         return new ResponseEntity<>(result, HttpStatus.OK) ;
     }
