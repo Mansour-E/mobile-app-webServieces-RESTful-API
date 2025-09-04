@@ -1,5 +1,6 @@
 package info.emami.mobileappws.ui.controller;
 
+import info.emami.mobileappws.ui.model.response.UserRest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,9 +16,10 @@ public class UserController {
     }
 
     @GetMapping(path = "/{userId}")
-    public String getUser(@PathVariable String userId){
+    public UserRest getUser(@PathVariable String userId){
 
-        return "get user was called userId = " + userId;
+        UserRest result = new UserRest("Mansour", "Emami", "mansuurem@gmail.com", userId);
+        return result;
     }
 
     @PostMapping
