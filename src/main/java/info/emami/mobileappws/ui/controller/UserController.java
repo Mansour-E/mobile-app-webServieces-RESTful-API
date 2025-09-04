@@ -1,5 +1,6 @@
 package info.emami.mobileappws.ui.controller;
 
+import info.emami.mobileappws.ui.model.request.UserDetailsRequestModel;
 import info.emami.mobileappws.ui.model.response.UserRest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,10 +27,24 @@ public class UserController {
         return new ResponseEntity<>(result,HttpStatus.BAD_GATEWAY);
     }
 
-    @PostMapping
-    public String creatUser(){
+    @PostMapping(consumes = {
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE
+    },
+                produces = {
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE
 
-        return "Creat user was called";
+    })
+    public ResponseEntity<UserRest> creatUser(@RequestBody UserDetailsRequestModel userDetails){
+
+        UserRest result = new UserRest();
+        result.setEmail(userDetails.getEmail());
+        result.setFirstName(userDetails.getFirstName());
+        result.setLastName(userDetails.getLastName());
+        result.setUserId(userDetails.getUserId());
+
+        return new ResponseEntity<>(result, HttpStatus.OK) ;
     }
 
     @PutMapping
