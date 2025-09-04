@@ -8,9 +8,16 @@ public class UserController {
 
 
     @GetMapping
-    public String getUser(){
+    public String getUsers(@RequestParam(value = "page") int page,
+                           @RequestParam(value = "limit") int limit ){
 
-        return "get user was called";
+        return "get user was called with  page = "  + page + " and limit = " + limit;
+    }
+
+    @GetMapping(path = "/{userId}")
+    public String getUser(@PathVariable String userId){
+
+        return "get user was called userId = " + userId;
     }
 
     @PostMapping
