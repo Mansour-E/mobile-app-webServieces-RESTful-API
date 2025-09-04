@@ -7,6 +7,9 @@ public class UserRest {
     private String email;
     private String userId;
 
+    public UserRest() {
+    }
+
     public UserRest(String firstName, String lastName, String email, String userId) {
         this.firstName = firstName;
         this.lastName = lastName;
