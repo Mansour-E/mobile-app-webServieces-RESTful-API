@@ -1,5 +1,6 @@
 package info.emami.mobileappws.ui.controller;
 
+import info.emami.mobileappws.ui.model.request.UpdateUserDetailsRequestModel;
 import info.emami.mobileappws.ui.model.request.UserDetailsRequestModel;
 import info.emami.mobileappws.ui.model.response.UserRest;
 import jakarta.validation.Valid;
@@ -71,8 +72,15 @@ public class UserController {
                     MediaType.APPLICATION_JSON_VALUE
 
             })
-    public String updateUser(@PathVariable String userId, @Valid @RequestBody UserDetailsRequestModel userDetails){
-        return "update user was called";
+    public UserRest updateUser(@PathVariable String userId, @Valid @RequestBody UpdateUserDetailsRequestModel userDetails){
+
+        UserRest storedUserDetails = users.get(userId);
+        storedUserDetails.setFirstName(userDetails.getFirstName());
+        storedUserDetails.setLastName(userDetails.getLastName());
+
+        users.put(userId, storedUserDetails);
+
+        return storedUserDetails;
     }
 
     @DeleteMapping

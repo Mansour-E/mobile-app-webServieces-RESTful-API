@@ -12,11 +12,12 @@ public class UserDetailsRequestModel {
     @NotNull(message = "Last name cannot be null")
     private String lastName;
 
-    @Email @NotNull(message = "email cannot be null")
+    @Email
+    @NotNull(message = "email cannot be null")
     private String email;
 
-    @NotNull(message = "password cannot be null")
-    @Size(min = 8 , max = 16, message = "password should be les than 16 or greater than 8 character")
+    @NotNull(message = "email cannot be null")
+    @Size(min = 8, max = 12 , message = " password should be more than 8 and less than 12 chars")
     private String password;
 
 
