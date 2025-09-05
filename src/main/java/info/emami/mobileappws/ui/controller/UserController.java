@@ -8,9 +8,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("users") //http://localhost:8080/users
 public class UserController {
+
+
+    Map<String, UserRest> users;
 
 
     @GetMapping
@@ -24,8 +31,11 @@ public class UserController {
                                                     MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<UserRest> getUser(@PathVariable String userId){
 
-        UserRest result = new UserRest("Mansour", "Emami", "mansuurem@gmail.com", userId);
-        return new ResponseEntity<>(result,HttpStatus.BAD_GATEWAY);
+        if(users.containsKey(userId)){
+            return new ResponseEntity<>(users.get(userId), HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @PostMapping(consumes = {
@@ -43,17 +53,31 @@ public class UserController {
         result.setEmail(userDetails.getEmail());
         result.setFirstName(userDetails.getFirstName());
         result.setLastName(userDetails.getLastName());
+        result.setPassword(userDetails.getPassword());
 
+        String userId = UUID.randomUUID().toString();
+        result.setUserId(userId);
+        if(users == null) users = new HashMap<>();
+        users.put(userId , result);
         return new ResponseEntity<>(result, HttpStatus.OK) ;
     }
 
-    @PutMapping
-    public String updateUser(){
+    @PutMapping(path = "/{userId}", consumes = {
+            MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_JSON_VALUE
+    },
+            produces = {
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE
+
+            })
+    public String updateUser(@PathVariable String userId, @Valid @RequestBody UserDetailsRequestModel userDetails){
         return "update user was called";
     }
 
     @DeleteMapping
     public String deleteUser(){
         return "delete user was called";
+
     }
 }

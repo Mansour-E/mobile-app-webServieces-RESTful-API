@@ -6,15 +6,25 @@ public class UserRest {
     private String lastName;
     private String email;
     private String userId;
+    private String password;
 
     public UserRest() {
     }
 
-    public UserRest(String firstName, String lastName, String email, String userId) {
+    public UserRest(String firstName, String lastName, String email, String userId, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.userId = userId;
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
