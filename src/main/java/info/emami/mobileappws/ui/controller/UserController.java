@@ -1,5 +1,6 @@
 package info.emami.mobileappws.ui.controller;
 
+import info.emami.mobileappws.exceptions.UserServiceExeption;
 import info.emami.mobileappws.ui.model.request.UpdateUserDetailsRequestModel;
 import info.emami.mobileappws.ui.model.request.UserDetailsRequestModel;
 import info.emami.mobileappws.ui.model.response.UserRest;
@@ -32,10 +33,12 @@ public class UserController {
                                                     MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<UserRest> getUser(@PathVariable String userId){
 
-        String firstName = null;
+        /*String firstName = null;
         //
         //
-        int firstNameLength = firstName.length();
+        int firstNameLength = firstName.length();*/
+
+        if(true) throw new UserServiceExeption("A user service Exception is triggered ");
 
         if(users.containsKey(userId)){
             return new ResponseEntity<>(users.get(userId), HttpStatus.OK);
